@@ -1,1 +1,1 @@
-# power-outage-predictor
+# Power Outage Predictor
