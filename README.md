@@ -1,3 +1,2 @@
-# Power Outage Predictor
+# Introduction
 
-# Header
