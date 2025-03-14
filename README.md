@@ -1,4 +1,3 @@
-# Exploring Regular and Extreme Power Outages
 ## Introduction 
 
 ## Data Cleaning and Exploratory Data Analysis
