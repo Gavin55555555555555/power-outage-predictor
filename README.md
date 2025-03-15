@@ -193,7 +193,7 @@ Below are the results of my permutation test.
   height="600"
   frameborder="0"
 ></iframe>
-My observed TVD was 184.5. The p-value from this is 0. I reject the null. 
+My observed TVD was 184.5. The p-value from this is 0. I reject the null. This shows that different levels of duration severity may have different underlying factors. This plays a large role in my prediction problem.
 
 ## Framing a Prediction Problem
 
