@@ -58,7 +58,7 @@ Notably, the distribution of power outage durations is heavily skewed to the rig
 
 Here is a graph showing 
 <iframe
-  src="plotly_graphs/univariate-analysis-2.html"
+  src="plotly_graphs/univariate2.html"
   width="800"
   height="600"
   frameborder="0"
@@ -67,6 +67,13 @@ Here is a graph showing
 ### Bivariate Analysis
 <iframe
   src="plotly_graphs/bivariate-analysis.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="plotly_graphs/bivariate-analysis-2.html"
   width="800"
   height="600"
   frameborder="0"
