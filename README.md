@@ -210,7 +210,7 @@ For the baseline model, I used a Random Forest Classifier. I used 7 features. Of
 
  `"CLIMATE.REGION"` and `"NERC.REGION"` are nominal variables. I OneHotEncoded them before passing them into the classifier. 
 
- The model had an accuracy of 0.61 and a F1 Score of 0.62 Both of these metrics are fairly low, demonstrating poor model performance. 
+ The model had an accuracy of 0.61 and a F1 Score of 0.62 Both of these metrics are fairly low, so the model isn't very good. 
 
  
 
