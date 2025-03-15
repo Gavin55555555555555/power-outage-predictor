@@ -247,5 +247,5 @@ Is this model fair between different groups? My two groups are "new" power outag
   height="600"
   frameborder="0"
 ></iframe>
-My observed absolute difference in F1 scores was 1,232,916.86. The p-value from this is 0.057. I narrowly fail to reject the null. The model is fair. 
+My observed absolute difference in F1 scores was 0.035. The p-value from this is 0.057. I narrowly fail to reject the null. The model is fair. 
 
