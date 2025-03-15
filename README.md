@@ -203,13 +203,28 @@ My observed TVD was 184.5. The p-value from this is 0. I reject the null.
 
 From our hypothesis test and exploratory data analysis, there appears to be some underlying differences in causes, location, and time for `minor`, `average`, or `extreme` power outages. Is it possible to predict if an outage is `minor`, `average`, or `extreme` from the other columns? If we can, then there must be some underlying differences between these outage categories. I will create an algorithm to do this. 
 
-I aim to classify outages as either `minor`, `average`, or `extreme`. This is muliclass classification. The classes are not very unbalanced, so I will use accuracy as the primary metric to grade my model's perfomance, however, I will also look at F1 scores to supplement this. 
+I aim to classify outages as either `minor`, `average`, or `extreme`. This is muliclass classification. I will use accuracy as the primary metric to grade my model's perfomance since the classes are not super unbalanced and accuracy easier to intrepret then other metrics. However, I will also use F1 scores as well to grade performance. 
 
 ## Baseline Model
+For the baseline model, I used a Random Forest Classifier. I used 7 features:
+ 
 
+ `"UTIL.CONTRI"`: (Continuous) Serves to determine how large the utility sector is. 
+ 
+ `"MONTH"`: (Ordinal) The rate of power outages changes during the year, especially when weather is extreme, like during hot summers or cold winters. This feature escapsulates this. 
+ 
+ `"TOTAL.CUSTOMERS"`: (Discrete) The total number of customers can describe how wide spanning the power grid is for the given outage, which provides insight on outage severity. 
+ 
+ `"POPDEN_RURAL"`: (Continuous) From experimenting with different features, rural population seems like a good predictor for outage severity. Rural populations far away from the grid may recieve less service from power compaines, leading to longer power outages.
 
+ `"POPPCT_UC"`: (Continuous) Similar reasons as  `"POPDEN_RURAL"`
+ 
+ `"CLIMATE.REGION"` and `"NERC.REGION"`: (Nominal) From our previous tests, outage location appears to be a good way of determining outage severity. 
+ 
 
 ## Final Model
+
+For my final model, I continued to use a Random Forest Classifier. 
 
 
 <iframe
