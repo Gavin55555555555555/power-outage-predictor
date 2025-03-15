@@ -206,26 +206,26 @@ From our hypothesis test and exploratory data analysis, there appears to be some
 I aim to classify outages as either `minor`, `average`, or `extreme`. This is muliclass classification. I will use accuracy as the primary metric to grade my model's perfomance since the classes are not super unbalanced and accuracy easier to intrepret then other metrics. However, I will also use F1 scores as well to grade performance. 
 
 ## Baseline Model
-For the baseline model, I used a Random Forest Classifier. I used 7 features:
- 
+For the baseline model, I used a Random Forest Classifier. I used 7 features. Of these seven, `"UTIL.CONTRI"`, `"TOTAL.CUSTOMERS"`, `"POPDEN_RURAL"`, and `"POPPCT_UC"` are quantitative variables. No additional processing was needed on these columns, so I passed them into the classifier directly. 
 
- `"UTIL.CONTRI"`: (Continuous) Serves to determine how large the utility sector is. 
- 
- `"MONTH"`: (Ordinal) The rate of power outages changes during the year, especially when weather is extreme, like during hot summers or cold winters. This feature escapsulates this. 
- 
- `"TOTAL.CUSTOMERS"`: (Discrete) The total number of customers can describe how wide spanning the power grid is for the given outage, which provides insight on outage severity. 
- 
- `"POPDEN_RURAL"`: (Continuous) From experimenting with different features, rural population seems like a good predictor for outage severity. Rural populations far away from the grid may recieve less service from power compaines, leading to longer power outages.
+`"MONTH"` is an ordinal variable, but the dataset gave `"MONTH"` as an integer value already instead of using month names. I was also able to directly pass this into the classifier. 
 
- `"POPPCT_UC"`: (Continuous) Similar reasons as  `"POPDEN_RURAL"`
- 
- `"CLIMATE.REGION"` and `"NERC.REGION"`: (Nominal) From our previous tests, outage location appears to be a good way of determining outage severity. 
+ `"CLIMATE.REGION"` and `"NERC.REGION"` are nominal variables. I OneHotEnconded them before passing them into the classifier. 
+
+ The model had an accuracy of 0.61 and a F1 Score of 0.62 Both of these metrics are fairly low, demonstrating poor model performance. 
+
  
 
 ## Final Model
 
-For my final model, I continued to use a Random Forest Classifier. 
+For my final model, I continued to use a Random Forest Classifier. In addition to the variables I used in my baseline model, I added four new variables. 
 
+`IS_NIGHT`: (Nominal) From using `"MONTH"` in the baseline model and working with `YEAR"` in exploratory data analysis, time based variables seem like good predictors of outage severity. Intuitevely, outage durations may depend on what time the outage occured. For example, if it happened in the middle of the night, utility services may be slow to respond, leading to longer outage durations. 
+`PROP_STATE_SERVED`: (Continuous) This variable describes how much service the utility company needs to provide. The higher this proprotion, the larger the utility service is providing proportional to the size of the state. If this large, utility providers may be stretched thin, leadng to more severe power outages. 
+`CAUSE.CATEGORY`: (Nominal) From my aggregate analysis, I know different cause categories have different mean outage durations. This can potentially be used to determine outage severity. 
+`CAUSE.CATEGORY.DETAIL`: (Nominal) Adds further detail onto `CAUSE.CATEGORY`.
+
+I additionally used `GridSearchCV` to find the best hyperparameters for my classifier. These were `max_dpeth = 17`, `n_estimators = 250`, `min_samples_split = 4`, and `criterion = entropy`. The fninal model had a  acccuracy of 0.66 and and F1 score of 0.67. This is an improvement to both metrics. Below is a confusion matrix of the final model.
 
 <iframe
   src="plotly_graphs/confusion-matrix.html"
