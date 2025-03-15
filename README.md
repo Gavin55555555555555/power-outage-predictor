@@ -1,14 +1,14 @@
 # Power Outage Severity Classifier
 ## Introduction 
-Modern society relies heavily on a constant supply of electricity to function and as such, power outages can be very socially and economically costly. Is there a way we can predict the severity of power outages in order to prepare better for them? This is the question I am trying to answer with this project. Purdue's Laboratory for Advancing Sustainable Critical Infrastructure has provided a data set containing 1,534 major power outages from 2000 to 2016. This dataset contain a rich set of information about these outages, describing geographical location of the outages, regional climate information, land-use characteristics, electricity consumption patterns, and economic characteristics of the state the outages were in. Below are the columns that I use throughout my research:
+Modern society relies heavily on a constant supply of electricity to function and as such, power outages can be very socially and economically costly. Is there a way we can predict the severity of power outages in order to prepare better for them? This is the question I am trying to answer with this project. Purdue's Laboratory for Advancing Sustainable Critical Infrastructure has provided a data set containing 1,534 major power outages from 2000 to 2016. This dataset contains a rich set of information about these outages, describing geographical location of the outages, regional climate information, land-use characteristics, electricity consumption patterns, and economic characteristics of the state the outages were in. Below are the columns that I use throughout my research:
 
 
 
 | Column                    | Description                                                                                             |
 |:--------------------------|:--------------------------------------------------------------------------------------------------------|
-| `YEAR`                    | Year which the power outage occured.                                                                    |
-| `MONTH`                   | Month which the power outage occured.                                                                   |
-| `U.S._STATE`              | State where the power outage occured.                                                                   |
+| `YEAR`                    | Year which the power outage occurred.                                                                   |
+| `MONTH`                   | Month when the power outage occurred.                                                                   |
+| `U.S._STATE`              | State where the power outage occurred.                                                                  |
 | `NERC.REGION`             | The North American Electric Reliability Corporation (NERC) regions involved with the power outage.      |
 | `CLIMATE.REGION`          | US climate regions as specified by National Centers for Environmental Information.                      |
 | `OUTAGE.START.DATE`       | Date when the power outage started.                                                                     |
@@ -20,7 +20,7 @@ Modern society relies heavily on a constant supply of electricity to function an
 | `OUTAGE.DURATION`         | Duration of power outage in minutes.                                                                    |
 | `TOTAL.CUSTOMERS`         | Annual number of total customers served in the US state.                                                |
 | `UTIL.CONTRI`             | Utility industry׳s contribution to the total Gross State Product in the State.                          |
-| `POPULATION`              | Population in the US state where the outage occured during the year the outage occured.                 |
+| `POPULATION`              | Population in the US state where the outage occurred during the year the outage occurred.               |
 | `POPPCT_URBAN`            | Percentage of the total population of the US state represented by the population of the urban clusters. |
 | `POPPCT_UC`               | Percentage of the total population of the US state represented by the urban population.                 |
 | `POPDEN_URBAN`            | Population density of the urban areas (persons per square mile).                                        |
@@ -35,7 +35,7 @@ I began cleaning the data by removing columns unneeded for my analysis. `OUTAGE.
 
 I additionally classified all power outages as `minor`, `average`, or `extreme`. All power outages with durations below the first quartile are classified as `minor`, all power outages with durations in the interquartile range are classified as `average`, and all power outages with durations above the third quartile are classified as `extreme`. 
 
-I also added two other new columns, `PROP_STATE_SERVED` and `IS_NIGHT`. `PROP_STATE_SERVED` is the proportion of people in the state where the outage occured who are customers to the utility company correspoding to the outage. `IS_NIGHT` is a boolean column that is `True` if the outage occured during the "night", which I define as any time between 6:00 PM and 6:00 AM , and `False` otherwise. 
+I also added two other new columns, `PROP_STATE_SERVED` and `IS_NIGHT`. `PROP_STATE_SERVED` is the proportion of people in the state where the outage occurred who are customers to the utility company corresponding to the outage. `IS_NIGHT` is a boolean column that is `True` if the outage occurred during the "night", which I define as any time between 6:00 PM and 6:00 AM , and `False` otherwise. 
 
 Below are the first few rows of my cleaned dataset with some of the modified columns mentioned above: 
 
@@ -55,16 +55,15 @@ Here is a graph showing the distribution of power outage durations in the datase
   height="600"
   frameborder="0"
 ></iframe>
-Notably, the distribution of power outage durations is heavily skewed to the right. Both the mean and median power outage duration are around 700-800 minutes, but there is a large right tail in the distribution. This shows that most regular power outages are relatively short, however occasionally very extreme power outages occur that last signifcantly longer. 
+Notably, the distribution of power outage durations is heavily skewed to the right. Both the mean and median power outage duration are around 700-800 minutes, but there is a large right tail in the distribution. This shows that most regular power outages are relatively short, however occasionally very extreme power outages occur that last significantly longer. 
 
-Here is a graph showing the number of power outages that occured in each climate region.
+Here is a graph showing the number of power outages that occurred in each climate region.
 <iframe
   src="plotly_graphs/univariate2.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 Notice that the number of power outages is not uniform between all climate regions. The most number of outages occur in the Northeast and the least occur in West North Central.
 
 ### Bivariate Analysis
@@ -76,7 +75,7 @@ On the x-axis of this scatter plot is the start date of all outages in the datas
   height="600"
   frameborder="0"
 ></iframe>
-We can see that a lot of short power outages occur through 2000 to 2016. However, there was no extremely long power outages in the early years. As the data gets closer to 2016, more and more extreme power outages occur with increasing severity.  
+We can see that a lot of short power outages occur through 2000 to 2016. However, there were less extremely long power outages in the earlier years. As the data gets closer to 2016, more and more extreme power outages occur with increasing severity.  
 
 This graph shows the mean outage duration of each climate region.
 <iframe
@@ -109,9 +108,6 @@ Interestingly, the mean outage duration of power outages caused by severe weathe
   height="600"
   frameborder="0"
 ></iframe>
-
-
-
 ## Assessment of Missingness 
 
 Here are the five columns with the most number of missing values.
@@ -125,12 +121,12 @@ Here are the five columns with the most number of missing values.
 | CLIMATE.REGION        |   6 |
 
 ### NMAR Analysis
-I believe that `CAUSE.CATEGORY.DETAIL` is NMAR. If the specific detailed cause of an outage is difficult to observe, then it is more likely to go unnoticed and reported as NaN. Therefore, the value of the data itself influences whether or not it is missing. This by defintion is NMAR. 
+I believe that `CAUSE.CATEGORY.DETAIL` is NMAR. If the specific detailed cause of an outage is difficult to observe, then it is more likely to go unnoticed and reported as NaN. Therefore, the value of the data itself influences whether or not it is missing. This by definition is NMAR. 
 Additional data on how many people or which agencies performed the investigation to determine `CAUSE.CATEGORY.DETAIL` may change it from NMAR and MAR, as these columns may provide insight on the missingness of `CAUSE.CATEGORY.DETAIL`.
 
 ### Missingness Dependency
 
-#### Missingness of Outage Duration depedent on Percent Land
+#### Missingness of Outage Duration dependent on Percent Land
 
 Let us examine the missingness of Outage Duration conditional on Percent Land. 
 
@@ -152,7 +148,7 @@ Here is the results of the permutation test:
 My observed absolute difference in means was 3.97. The p-value from this is 0.003. This is below my set significance value of 0.05. Therefore, I reject the null hypothesis. Missingness of `OUTAGE.DURATION` appears to depend on `PCT_LAND`. 
 
 
-#### Missingness of Outage Duration depedent on State Population
+#### Missingness of Outage Duration dependent on State Population
 
 Let us examine the missingness of Outage Duration conditional on State Population. 
 
@@ -175,11 +171,11 @@ Here is the results of the permutation test:
 My observed difference in means was 1,232,916.86. The p-value from this is 0.436. I fail to reject the null. Missingness of `OUTAGE.DURATION` does not appear to depend on `PCT_LAND`.
 
 #### Imputation
-The results of our permutation tests imply that missingness of `OUTAGE.DURATION` appears to depend on `PCT_LAND`. I imputed the missing values of `OUTAGE.DURATION` with conditional mean imputation based on `PCT_LAND`. I did this by categorizing all rows into a  quartile of `PCT_LAND`. I filled missing `OUTAGE.DURATION` values with the mean `OUTAGE.DURATION` of the `PCT_LAND` quartile.  
+The results of our permutation tests imply that missingness of `OUTAGE.DURATION` appears to depend on `PCT_LAND`. I imputed the missing values of `OUTAGE.DURATION` with conditional mean imputation based on `PCT_LAND`. I did this by categorizing all rows into a quartile of `PCT_LAND`. I filled in the missing `OUTAGE.DURATION` values with the mean `OUTAGE.DURATION` of the `PCT_LAND` quartile.  
 
 ## Hypothesis Testing
 
-I classified the power outages as either `minor`, `average`, or `extreme`. The outages themselves did not come innately labeled this way. Is there actually any underlying differences between these classes of power outages besides duration or are these class labels arbituary? Do shorter power outages happen in different locations or have different causes compared to longer power outages in general? I aim to discern this with my permutation test. I will be testing if the distribution of `U.S._STATE` is different between `extreme` power outages and `minor` power outages.
+I classified the power outages as either `minor`, `average`, or `extreme`. The outages themselves did not come innately labeled this way. Is there actually any underlying differences between these classes of power outages besides duration or are these class labels arbitrary? Do shorter power outages happen in different locations or have different causes compared to longer power outages in general? I aim to discern this with my permutation test. I will be testing if the distribution of `U.S._STATE` is different between `extreme` power outages and `minor` power outages.
 
 **Null Hypothesis:** The distribution of  `U.S._STATE` is the same between `minor` outages and `extreme` outages. Any differences are due to random chance. 
 
@@ -203,14 +199,16 @@ My observed TVD was 184.5. The p-value from this is 0. I reject the null.
 
 From our hypothesis test and exploratory data analysis, there appears to be some underlying differences in causes, location, and time for `minor`, `average`, or `extreme` power outages. Is it possible to predict if an outage is `minor`, `average`, or `extreme` from the other columns? If we can, then there must be some underlying differences between these outage categories. I will create an algorithm to do this. 
 
-I aim to classify outages as either `minor`, `average`, or `extreme`. This is muliclass classification. I will use accuracy as the primary metric to grade my model's perfomance since the classes are not super unbalanced and accuracy easier to intrepret then other metrics. However, I will also use F1 scores as well to grade performance. 
+I aim to classify outages as either `minor`, `average`, or `extreme`. This is multiclass classification. I will use accuracy as the primary metric to grade my model's performance since the classes are not super unbalanced and accuracy easier to interpret than other metrics. However, I will also use F1 scores as well to grade performance. 
+
+Anything that we would when the outage starts is information that I would know at the time of prediction. For example, geographical data, like the state where the outage occurred, economic data of that state, and population data. I would also probably know the rough time the outage started, like year, month, and approximate time of day. I would also probably know the cause of the outage at the time of prediction, especially if the outage was caused by a weather event, which most of the outages in this dataset are. 
 
 ## Baseline Model
 For the baseline model, I used a Random Forest Classifier. I used 7 features. Of these seven, `"UTIL.CONTRI"`, `"TOTAL.CUSTOMERS"`, `"POPDEN_RURAL"`, and `"POPPCT_UC"` are quantitative variables. No additional processing was needed on these columns, so I passed them into the classifier directly. 
 
 `"MONTH"` is an ordinal variable, but the dataset gave `"MONTH"` as an integer value already instead of using month names. I was also able to directly pass this into the classifier. 
 
- `"CLIMATE.REGION"` and `"NERC.REGION"` are nominal variables. I OneHotEnconded them before passing them into the classifier. 
+ `"CLIMATE.REGION"` and `"NERC.REGION"` are nominal variables. I OneHotEncoded them before passing them into the classifier. 
 
  The model had an accuracy of 0.61 and a F1 Score of 0.62 Both of these metrics are fairly low, demonstrating poor model performance. 
 
@@ -220,12 +218,12 @@ For the baseline model, I used a Random Forest Classifier. I used 7 features. Of
 
 For my final model, I continued to use a Random Forest Classifier. In addition to the variables I used in my baseline model, I added four new variables. 
 
-`IS_NIGHT`: (Nominal) From using `"MONTH"` in the baseline model and working with `YEAR"` in exploratory data analysis, time based variables seem like good predictors of outage severity. Intuitevely, outage durations may depend on what time the outage occured. For example, if it happened in the middle of the night, utility services may be slow to respond, leading to longer outage durations. 
-`PROP_STATE_SERVED`: (Continuous) This variable describes how much service the utility company needs to provide. The higher this proprotion, the larger the utility service is providing proportional to the size of the state. If this large, utility providers may be stretched thin, leadng to more severe power outages. 
+`IS_NIGHT`: (Nominal) From using `"MONTH"` in the baseline model and working with `YEAR"` in exploratory data analysis, time based variables seem like good predictors of outage severity. Outage durations may depend on what time the outage occurred. For example, if it happened in the middle of the night, utility services may be slow to respond, leading to longer outage durations. 
+`PROP_STATE_SERVED`: (Continuous) This variable describes how much service the utility company needs to provide. The higher this proportion, the larger the utility service is providing proportional to the size of the state. If this large, utility providers may be stretched thin, leading to more severe power outages. 
 `CAUSE.CATEGORY`: (Nominal) From my aggregate analysis, I know different cause categories have different mean outage durations. This can potentially be used to determine outage severity. 
 `CAUSE.CATEGORY.DETAIL`: (Nominal) Adds further detail onto `CAUSE.CATEGORY`.
 
-I additionally used `GridSearchCV` to find the best hyperparameters for my classifier. These were `max_dpeth = 17`, `n_estimators = 250`, `min_samples_split = 4`, and `criterion = entropy`. The fninal model had a  acccuracy of 0.66 and and F1 score of 0.67. This is an improvement to both metrics. Below is a confusion matrix of the final model.
+I additionally used `GridSearchCV` to find the best hyperparameters for my classifier. These were `max_dpeth = 17`, `n_estimators = 250`, `min_samples_split = 4`, and `criterion = entropy`.  The final model had an accuracy of 0.66 and an F1 score of 0.67. This is an improvement to both metrics. Below is a confusion matrix of the final model.
 
 <iframe
   src="plotly_graphs/confusion-matrix.html"
@@ -233,9 +231,8 @@ I additionally used `GridSearchCV` to find the best hyperparameters for my class
   height="600"
   frameborder="0"
 ></iframe>
-
 ## Fairness Analysis 
-Is this model fair between different groups? My two groups are "new" power outages and "old" power outages. New power outages are any outage that occured after 2010. "Old" power outages are any outages that occured during or before 2010. Below are the null and alternative hypothesis, test statisitic, and significance level. 
+Is this model fair between different groups? My two groups are "new" power outages and "old" power outages. New power outages are any outages that occurred after 2010. "Old" power outages are any outages that occurred during or before 2010. Below are the null and alternative hypothesis, test statistic, and significance level. 
 **Null Hypothesis:** The model is fair. The model has roughly equal F1 Scores for old power outages and new power outages. Any differences are due to random chance. 
 
 **Alternative Hypothesis:** The model is unfair. The model has different F1 Scores for old power outages and new power outages.
@@ -250,6 +247,5 @@ Is this model fair between different groups? My two groups are "new" power outag
   height="600"
   frameborder="0"
 ></iframe>
-
 My observed absolute difference in F1 scores was 1,232,916.86. The p-value from this is 0.057. I narrowly fail to reject the null. The model is fair. 
 
