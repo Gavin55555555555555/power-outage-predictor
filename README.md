@@ -113,6 +113,8 @@ Interestingly, the mean outage duration of power outages caused by severe weathe
 
 ## Assessment of Missingness 
 
+Here are the five columns with the most number of missing values.
+
 |                       |   0 |
 |:----------------------|----:|
 | CAUSE.CATEGORY.DETAIL | 471 |
@@ -122,27 +124,37 @@ Interestingly, the mean outage duration of power outages caused by severe weathe
 | CLIMATE.REGION        |   6 |
 
 ### NMAR Analysis
+I believe that `CAUSE.CATEGORY.DETAIL` is NMAR. If the specific detailed cause of an outage is difficult to observe, then it is more likely to go unnoticed and reported as NaN. Therefore, the value of the data itself influences whether or not it is missing. This by defintion is NMAR. 
+Additional data on how many people or which agencies performed the investigation to determine `CAUSE.CATEGORY.DETAIL` may change it from NMAR and MAR, as these columns may provide insight on the missingness of `CAUSE.CATEGORY.DETAIL`.
+
 ### Missingness Dependency
 
 #### Missingness of Outage Duration depedent on Percent Land
+Let us examine the missingness of Outage Duration conditional on Percent Land. 
 
-<iframe
-  src="plotly_graphs/interesting-agg.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+**Null Hypothesis:** The mean `PCT_LAND` Land is the same when `OUTAGE.DURATION` is missing vs not missing.
+**Alternative Hypothesis:** The mean `PCT_LAND` Land is different when `OUTAGE.DURATION` is missing vs not missing.
+**Test Statistic:** Absolute difference in means.
+**Significance Level:** 0.05
 
-
-#### Missingness of Outage Duration depedent on State Population 
-
+Here is the results of the permutation test: 
 <iframe
   src="plotly_graphs/missingness-analysis-pct-land.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+My observed absolute difference in means was 3.97. The p-value from this is 0.003. This is below my set significance value of 0.05. Therefore, we reject the null hypothesis. Missingness of `OUTAGE.DURATION` appears to depend on `PCT_LAND`. 
 
+
+#### Missingness of Outage Duration depedent on State Population 
+
+<iframe
+  src="plotly_graphs/missingness-analysis-population.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 ## Hypothesis Testing
@@ -162,12 +174,6 @@ Interestingly, the mean outage duration of power outages caused by severe weathe
 
 ## Final Model
 
-<iframe
-  src="plotly_graphs/hypothesis-testing.html"
-  width="800"
-  height="600"
-  frameborder="0" 
-></iframe>
 
 <iframe
   src="plotly_graphs/confusion-matrix.html"
