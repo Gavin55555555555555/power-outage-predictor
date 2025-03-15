@@ -235,6 +235,14 @@ I additionally used `GridSearchCV` to find the best hyperparameters for my class
 ></iframe>
 
 ## Fairness Analysis 
+Is this model fair between different groups? My two groups are "new" power outages and "old" power outages. New power outages are any outage that occured after 2010. "Old" power outages are any outages that occured during or before 2010. Below are the null and alternative hypothesis, test statisitic, and significance level. 
+**Null Hypothesis:** The model is fair. The model has roughly equal F1 Scores for old power outages and new power outages. Any differences are due to random chance. 
+
+**Alternative Hypothesis:** The model is unfair. The model has different F1 Scores for old power outages and new power outages.
+
+**Test Statistic:** Absolute difference in F1 scores. 
+
+**Significance Level:** 0.05
 
 <iframe
   src="plotly_graphs/fairness-analysis.html"
@@ -242,4 +250,6 @@ I additionally used `GridSearchCV` to find the best hyperparameters for my class
   height="600"
   frameborder="0"
 ></iframe>
+
+My observed absolute difference in F1 scores was 1,232,916.86. The p-value from this is 0.057. I narrowly fail to reject the null. The model is fair. 
 
