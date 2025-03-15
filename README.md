@@ -55,7 +55,7 @@ Here is a graph showing the distribution of power outage durations in the datase
   height="600"
   frameborder="0"
 ></iframe>
-Notably, the distribution of power outage durations is heavily skewed to the right. Both the mean and median power outage duration are around 700-800 minutes, but there is a large right tail in the distribution. This shows that most ordinary power outages are relatively short, however occasionally very extreme power outages occur that last signifcantly longer. 
+Notably, the distribution of power outage durations is heavily skewed to the right. Both the mean and median power outage duration are around 700-800 minutes, but there is a large right tail in the distribution. This shows that most regular power outages are relatively short, however occasionally very extreme power outages occur that last signifcantly longer. 
 
 Here is a graph showing the number of power outages that occured in each climate region.
 <iframe
@@ -65,7 +65,7 @@ Here is a graph showing the number of power outages that occured in each climate
   frameborder="0"
 ></iframe>
 
-Notably, the number of power outages is not uniform between all climate regions. The most number of outages occur in the Northeast and the least occur in West North Central.
+Notice that the number of power outages is not uniform between all climate regions. The most number of outages occur in the Northeast and the least occur in West North Central.
 
 ### Bivariate Analysis
 
@@ -85,7 +85,7 @@ This graph shows the mean outage duration of each climate region.
   height="600"
   frameborder="0"
 ></iframe>
-Interestingly, this bar graph doesn't match up with the bar graph from the univariate analysis. The Northeast region experienced the most number of outages in the dataset by far, but the average outage duration of these outages are comparable to other regions. Meanwhile, the East North Central region experienced very few power outages, but these power outages have extremely high average durations. 
+Interestingly, this bar graph doesn't match up with the bar graph from the univariate analysis. The Northeast region experienced the most number of outages in the dataset by far, but the average duration of these outages are comparable to other regions. Meanwhile, the East North Central region experienced very few power outages, but these power outages have extremely high average durations. 
 
 
 ### Interesting Aggregates
@@ -172,7 +172,6 @@ Here is the results of the permutation test:
   height="600"
   frameborder="0"
 ></iframe>
-
 My observed difference in means was 1,232,916.86. The p-value from this is 0.436. I fail to reject the null. Missingness of `OUTAGE.DURATION` does not appear to depend on `PCT_LAND`.
 
 #### Imputation
@@ -193,18 +192,22 @@ I classified the power outages as either `minor`, `average`, or `extreme`. The o
 Below are the results of my permutation test.
 
 <iframe
-  src="plotly_graphs/hypothesis-test.html"
+  src="plotly_graphs/hypothesis-testing.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 My observed TVD was 184.5. The p-value from this is 0. I reject the null. 
 
 ## Framing a Prediction Problem
 
+From our hypothesis test and exploratory data analysis, there appears to be some underlying differences in causes, location, and time for `minor`, `average`, or `extreme` power outages. Is it possible to predict if an outage is `minor`, `average`, or `extreme` from the other columns? If we can, then there must be some underlying differences between these outage categories. I will create an algorithm to do this. 
+
+I aim to classify outages as either `minor`, `average`, or `extreme`. This is muliclass classification. The classes are not very unbalanced, so I will use accuracy as the primary metric to grade my model's perfomance, however, I will also look at F1 scores to supplement this. 
 
 ## Baseline Model
+
+
 
 ## Final Model
 
