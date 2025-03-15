@@ -56,7 +56,7 @@ Here is a graph showing the distribution of power outage durations in the datase
 ></iframe>
 Notably, the distribution of power outage durations is heavily skewed to the right. Both the mean and median power outage duration are around 700-800 minutes, but there is a large right tail in the distribution. This shows that most ordinary power outages are relatively short, however occasionally very extreme power outages occur that last signifcantly longer. 
 
-Here is a graph showing 
+Here is a graph showing the number of power outages that occured in each climate region.
 <iframe
   src="plotly_graphs/univariate2.html"
   width="800"
@@ -64,21 +64,28 @@ Here is a graph showing
   frameborder="0"
 ></iframe>
 
+Notably, the most number of power outages occur in the Northeast and the least occur in West North Central.
+
 ### Bivariate Analysis
+
+On the x-axis of this scatter plot is the start date of all outages in the dataset and on the y-axis is outage duration. 
 <iframe
   src="plotly_graphs/bivariate-analysis.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+We can see that a lot of short power outages occur through 2000 to 2016. However, there was no extremely long power outages in the early years. As the data gets closer to 2016, more and more extreme power outages occur with increasing severity.  
 
-
+This graph shows the mean outage duration of each climate region.
 <iframe
   src="plotly_graphs/bivariate-analysis-2.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+Interestingly, this bar graph doesn't match up with the bar graph from the univariate analysis. The Northeast region experienced the most number of outages in the dataset by far, but the average outage duration of these outages are comparable to other regions. Meanwhile, the East North Central region experienced very few power outages, but these power outages have extremely high average durations. 
+
 
 ### Interesting Aggregates
 
@@ -93,7 +100,7 @@ Here is a graph showing
 |   727.5  |   711.778 |  204.333 | 2528.57  |   96.3333 |   228.75 |   229    |  459.25  |   382.143 |  229.333 |  2112.85 |  579     |  330.429 |  160.333 |    52     |  375     |   947.125 |
 
 <iframe
-  src="plotly_graphs/bivariate-analysis.html"
+  src="plotly_graphs/interesting-agg.html"
   width="800"
   height="600"
   frameborder="0"
