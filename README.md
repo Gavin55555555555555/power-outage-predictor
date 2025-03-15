@@ -1,3 +1,4 @@
+# Power Outage Severity Classifier
 ## Introduction 
 
 | Column                    | Description                                                                                             |
@@ -72,6 +73,13 @@
 
 ## Assessment of Missingness 
 
+|                       |   0 |
+|:----------------------|----:|
+| CAUSE.CATEGORY.DETAIL | 471 |
+| SEVERITY              |  58 |
+| OUTAGE.RESTORATION    |  58 |
+| POPDEN_UC             |  10 |
+| CLIMATE.REGION        |   6 |
 ### NMAR Analysis
 ### Missingness Dependency
 
