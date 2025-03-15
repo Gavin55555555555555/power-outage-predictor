@@ -85,11 +85,13 @@ Here is a graph showing
 |   727.5  |   711.778 |  204.333 | 2528.57  |   96.3333 |   228.75 |   229    |  459.25  |   382.143 |  229.333 |  2112.85 |  579     |  330.429 |  160.333 |    52     |  375     |   947.125 |
 
 <iframe
-  src="plotly_graphs/interesting-agg.html"
+  src="plotly_graphs/bivariate-analysis.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+
 
 ## Assessment of Missingness 
 
@@ -104,6 +106,17 @@ Here is a graph showing
 ### Missingness Dependency
 
 #### Missingness of Outage Duration depedent on Percent Land
+
+<iframe
+  src="plotly_graphs/interesting-agg.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+#### Missingness of Outage Duration depedent on State Population 
+
 <iframe
   src="plotly_graphs/missingness-analysis-pct-land.html"
   width="800"
@@ -111,7 +124,10 @@ Here is a graph showing
   frameborder="0"
 ></iframe>
 
-#### Missingness of Outage Duration depedent on State Population 
+
+
+## Hypothesis Testing
+
 <iframe
   src="plotly_graphs/missingness-analysis-population.html"
   width="800"
@@ -119,13 +135,6 @@ Here is a graph showing
   frameborder="0"
 ></iframe>
 
-## Hypothesis Testing
-<iframe
-  src="plotly_graphs/hypothesis-testing.html"
-  width="800"
-  height="600"
-  frameborder="0" 
-></iframe>
 
 ## Framing a Prediction Problem
 
@@ -133,6 +142,13 @@ Here is a graph showing
 ## Baseline Model
 
 ## Final Model
+
+<iframe
+  src="plotly_graphs/hypothesis-testing.html"
+  width="800"
+  height="600"
+  frameborder="0" 
+></iframe>
 
 <iframe
   src="plotly_graphs/confusion-matrix.html"
