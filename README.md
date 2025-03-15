@@ -1,5 +1,7 @@
 # Power Outage Severity Classifier
 ## Introduction 
+Modern society relies heavily on a constant supply of electricity to function and as such, power outages can be very socially and economically costly. Is there a way we can predict the severity of power outages in order to prepare better for them? This is the question I am trying to answer with this project. Purdue's Laboratory for Advancing Sustainable Critical Infrastructure has provided a data set containing 1,534 major power outages from 2000 to 2016. This dataset contain a rich set of information about these outages, describing geographical location of the outages, regional climate information, land-use characteristics, electricity consumption patterns, and economic characteristics of the state the outages were in. Below are the columns that I use throughout my research:
+
 
 | Column                    | Description                                                                                             |
 |:--------------------------|:--------------------------------------------------------------------------------------------------------|
@@ -26,7 +28,15 @@
 | `PCT_LAND`                | Percentage of land area in the US state as compared to the overall land area in the continental US.     |
 
 ## Data Cleaning and Exploratory Data Analysis
+
 ### Data Cleaning
+I began cleaning the data by removing columns unneeded for my analysis. `OUTAGE.START.DATE` and `OUTAGE.START.TIME` contain string values and describe similar data. For easier processing, I merged these two columns into one column called `OUTAGE.START`, which gives the date and time the outage started. I also converted the data from strings to timestamps. `OUTAGE.RESTORATION.DATE` and `OUTAGE.RESTORATION` time follow a similar pattern and I merged the information in those columns to `OUTAGE.RESTORATION`. 
+
+I additionally classified all power outages as `minor`, `average`, or `extreme`. All power outages with durations below the first quartile are classified as `minor`, all power outages with durations in the interquartile range are classified as `average`, and all power outages with durations above the third quartile are classified as `extreme`. 
+
+I also added two other new columns, `PROP_STATE_SERVED` and `IS_NIGHT`. `PROP_STATE_SERVED` is the proportion of people in the state where the outage occured who are customers to the utility company correspoding to the outage. `IS_NIGHT` is a boolean column that is `True` if the outage occured during the "night", which I define as any time between 6:00 PM and 6:00 AM , and `False` otherwise. 
+
+Below are the first few rows of my cleaned dataset with some of the modified columns mentioned above: 
 
 |   YEAR | U.S._STATE   | OUTAGE.START        | OUTAGE.RESTORATION   |   OUTAGE.DURATION |   PROP_STATE_SERVED | IS_NIGHT   | SEVERITY   |
 |-------:|:-------------|:--------------------|:---------------------|------------------:|--------------------:|:-----------|:-----------|
@@ -37,8 +47,18 @@
 |   2015 | Minnesota    | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |              1740 |            0.487018 | True       | average    |
 
 ### Univariate Analysis
+Here is a graph showing the distribution of power outage durations in the dataset. 
 <iframe
   src="plotly_graphs/univariate-analysis.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+Notably, the distribution of power outage durations is heavily skewed to the right. Both the mean and median power outage duration are around 700-800 minutes, but there is a large right tail in the distribution. This shows that most ordinary power outages are relatively short, however occasionally very extreme power outages occur that last signifcantly longer. 
+
+Here is a graph showing 
+<iframe
+  src="plotly_graphs/univariate-analysis-2.html"
   width="800"
   height="600"
   frameborder="0"
