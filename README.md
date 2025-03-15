@@ -3,6 +3,7 @@
 Modern society relies heavily on a constant supply of electricity to function and as such, power outages can be very socially and economically costly. Is there a way we can predict the severity of power outages in order to prepare better for them? This is the question I am trying to answer with this project. Purdue's Laboratory for Advancing Sustainable Critical Infrastructure has provided a data set containing 1,534 major power outages from 2000 to 2016. This dataset contain a rich set of information about these outages, describing geographical location of the outages, regional climate information, land-use characteristics, electricity consumption patterns, and economic characteristics of the state the outages were in. Below are the columns that I use throughout my research:
 
 
+
 | Column                    | Description                                                                                             |
 |:--------------------------|:--------------------------------------------------------------------------------------------------------|
 | `YEAR`                    | Year which the power outage occured.                                                                    |
@@ -64,7 +65,7 @@ Here is a graph showing the number of power outages that occured in each climate
   frameborder="0"
 ></iframe>
 
-Notably, the most number of power outages occur in the Northeast and the least occur in West North Central.
+Notably, the number of power outages is not uniform between all climate regions. The most number of outages occur in the Northeast and the least occur in West North Central.
 
 ### Bivariate Analysis
 
@@ -130,11 +131,15 @@ Additional data on how many people or which agencies performed the investigation
 ### Missingness Dependency
 
 #### Missingness of Outage Duration depedent on Percent Land
+
 Let us examine the missingness of Outage Duration conditional on Percent Land. 
 
 **Null Hypothesis:** The mean `PCT_LAND` Land is the same when `OUTAGE.DURATION` is missing vs not missing.
+
 **Alternative Hypothesis:** The mean `PCT_LAND` Land is different when `OUTAGE.DURATION` is missing vs not missing.
+
 **Test Statistic:** Absolute difference in means.
+
 **Significance Level:** 0.05
 
 Here is the results of the permutation test: 
@@ -144,10 +149,22 @@ Here is the results of the permutation test:
   height="600"
   frameborder="0"
 ></iframe>
-My observed absolute difference in means was 3.97. The p-value from this is 0.003. This is below my set significance value of 0.05. Therefore, we reject the null hypothesis. Missingness of `OUTAGE.DURATION` appears to depend on `PCT_LAND`. 
+My observed absolute difference in means was 3.97. The p-value from this is 0.003. This is below my set significance value of 0.05. Therefore, I reject the null hypothesis. Missingness of `OUTAGE.DURATION` appears to depend on `PCT_LAND`. 
 
 
-#### Missingness of Outage Duration depedent on State Population 
+#### Missingness of Outage Duration depedent on State Population
+
+Let us examine the missingness of Outage Duration conditional on State Population. 
+
+**Null Hypothesis:** The mean `POPULATION` Land is the same when `OUTAGE.DURATION` is missing vs not missing.
+
+**Alternative Hypothesis:** The mean `POPULATION` Land is different when `OUTAGE.DURATION` is missing vs not missing.
+
+**Test Statistic:** Absolute difference in means.
+
+**Significance Level:** 0.05
+
+Here is the results of the permutation test: 
 
 <iframe
   src="plotly_graphs/missingness-analysis-population.html"
@@ -156,16 +173,33 @@ My observed absolute difference in means was 3.97. The p-value from this is 0.00
   frameborder="0"
 ></iframe>
 
+My observed difference in means was 1,232,916.86. The p-value from this is 0.436. I fail to reject the null. Missingness of `OUTAGE.DURATION` does not appear to depend on `PCT_LAND`.
+
+#### Imputation
+The results of our permutation tests imply that missingness of `OUTAGE.DURATION` appears to depend on `PCT_LAND`. I imputed the missing values of `OUTAGE.DURATION` with conditional mean imputation based on `PCT_LAND`. I did this by categorizing all rows into a  quartile of `PCT_LAND`. I filled missing `OUTAGE.DURATION` values with the mean `OUTAGE.DURATION` of the `PCT_LAND` quartile.  
 
 ## Hypothesis Testing
 
+I classified the power outages as either `minor`, `average`, or `extreme`. The outages themselves did not come innately labeled this way. Is there actually any underlying differences between these classes of power outages besides duration or are these class labels arbituary? Do shorter power outages happen in different locations or have different causes compared to longer power outages in general? I aim to discern this with my permutation test. I will be testing if the distribution of `U.S._STATE` is different between `extreme` power outages and `minor` power outages.
+
+**Null Hypothesis:** The distribution of  `U.S._STATE` is the same between `minor` outages and `extreme` outages. Any differences are due to random chance. 
+
+**Alternative Hypothesis:** The distribution of  `U.S._STATE` is different between `minor` outages and `extreme` outages.
+
+**Test Statistic:** Total Variation Distance. 
+
+**Significance Level:** 0.05
+
+Below are the results of my permutation test.
+
 <iframe
-  src="plotly_graphs/missingness-analysis-population.html"
+  src="plotly_graphs/hypothesis-test.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 
+My observed TVD was 184.5. The p-value from this is 0. I reject the null. 
 
 ## Framing a Prediction Problem
 
